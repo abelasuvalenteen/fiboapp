@@ -1,0 +1,13 @@
+template: Hello, %s
+defaultName: Oracle
+defaultNumber: 5
+
+logging:
+  level: INFO
+  loggers:
+    oracle.challenge: DEBUG
+
+server:
+  applicationConnectors:
+    - type: http
+      port: 8181
