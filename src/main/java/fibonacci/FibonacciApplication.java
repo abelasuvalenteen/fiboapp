@@ -7,24 +7,24 @@ import io.dropwizard.Application;
 import io.dropwizard.setup.Bootstrap;
 import io.dropwizard.setup.Environment;
 
-public class OracleChallengeApplication extends Application<OracleChallengeConfiguration> {
+public class FibonacciApplication extends Application<FibonacciConfiguration> {
 
     public static void main(final String[] args) throws Exception {
-        new OracleChallengeApplication().run(args);
+        new FibonacciApplication().run(args);
     }
 
     @Override
     public String getName() {
-        return "OracleChallenge";
+        return "Fibonacci Application";
     }
 
     @Override
-    public void initialize(final Bootstrap<OracleChallengeConfiguration> bootstrap) {
+    public void initialize(final Bootstrap<FibonacciConfiguration> bootstrap) {
        // Do Nothing now
     }
 
     @Override
-    public void run(OracleChallengeConfiguration configuration,
+    public void run(FibonacciConfiguration configuration,
                     Environment environment) {
         final HelloWorldResource helloResource = new HelloWorldResource(
                 configuration.getTemplate(),

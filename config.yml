@@ -1,11 +1,11 @@
 template: Hello, %s
-defaultName: Oracle
+defaultName: FibonacciGenerator
 defaultNumber: 5
 
 logging:
   level: INFO
   loggers:
-    oracle.challenge: DEBUG
+    app.challenge: DEBUG
 
 server:
   applicationConnectors:

@@ -6,18 +6,18 @@
 
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>oracle.challenge</groupId>
+    <groupId>app.challenge</groupId>
     <artifactId>fibonacci</artifactId>
     <version>1.0.0-SNAPSHOT</version>
     <packaging>jar</packaging>
 
-    <name>OracleChallenge</name>
+    <name>FibonacciApplication</name>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <dropwizard.version>2.1.0-beta.1</dropwizard.version>
-        <mainClass>fibonacci.OracleChallengeApplication</mainClass>
+        <mainClass>fibonacci.FibonacciApplication</mainClass>
     </properties>
 
     <dependencyManagement>

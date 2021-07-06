@@ -5,7 +5,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 import javax.validation.constraints.NotEmpty;
 
-public class OracleChallengeConfiguration extends Configuration {
+public class FibonacciConfiguration extends Configuration {
     @NotEmpty
     private String template;
 
