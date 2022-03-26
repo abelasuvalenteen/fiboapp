@@ -51,10 +51,10 @@ def callDockerBuild () {
              branch: 'march-release'
          )
          }*/
-         withCredentials([[$class: 'UsernamePasswordMultiBinding', credentialsId: 'docker-hub', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD']]) {
+         //withCredentials([[$class: 'UsernamePasswordMultiBinding', credentialsId: 'docker-hub', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD']]) {
              // docker hub login
              sh "cd $WORKSPACE && ls -ltr"
-             sh "export DOCKER_HOST=tcp://localhost:2375 && docker login -u $USERNAME -p $PASSWORD"
+             //sh "docker login -u $USERNAME -p $PASSWORD"
 
              try {
                 // Kill the container if any running
@@ -74,7 +74,7 @@ def callDockerBuild () {
              sh "docker images"
              // docker run
              sh "docker run --name fibonacci -t -d -p 8181:8181/tcp ${DOCKER_HUB_NAMESPACE}/${IMAGE_NAME}:${VERSION}"
-         }
+         //}
      }
 }
 
