@@ -49,7 +49,7 @@ def callDockerBuild () {
          withCredentials([[$class: 'UsernamePasswordMultiBinding', credentialsId: 'git-hub', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD']]) {
          git(
              url: "https://$PASSWORD@github.com/abelasuvalenteen/fibonacci.git",
-             branch: 'march-release'
+             branch: 'main'
          )
          }
          //withCredentials([[$class: 'UsernamePasswordMultiBinding', credentialsId: 'docker-hub', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD']]) {
