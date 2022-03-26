@@ -96,7 +96,7 @@ pipeline {
             steps {
                script {
                    echo "Call docker build"
-                   callMavenSonarScan()
+                   //callMavenSonarScan()
                }
             }
         }
