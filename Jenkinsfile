@@ -11,7 +11,7 @@ def callMavenSonarScan() {
    // Get code from GitHub repository
    withCredentials([[$class: 'UsernamePasswordMultiBinding', credentialsId: 'GitHub-uname', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD']]) {
     git(
-    url: 'https://$PASSWORD@github.com/abelasuvalenteen/fibonacci.git',
+    url: "https://$PASSWORD@github.com/abelasuvalenteen/fibonacci.git",
     branch: 'march-release'
     )
    }
@@ -29,7 +29,7 @@ def callLocalBuild () {
    // Get code from GitHub repositorywithCredentials([[$class: 'UsernamePasswordMultiBinding', credentialsId: 'GitHub-uname', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD']]) {
    
    git(
-    url: 'https://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@github.com/abelasuvalenteen/fibonacci.git',
+    url: 'https://github.com/abelasuvalenteen/fibonacci.git',
     branch: 'main'
     )
 
@@ -47,7 +47,7 @@ def callDockerBuild () {
      dir("${WORKSPACE}") {
          withCredentials([[$class: 'UsernamePasswordMultiBinding', credentialsId: 'GitHub-uname', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD']]) {
          git(
-             url: 'https://github.com/abelasuvalenteen/fibonacci.git',
+             url: "https://$PASSWORD@github.com/abelasuvalenteen/fibonacci.git",
              branch: 'march-release'
          )
          }
