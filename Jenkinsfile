@@ -9,16 +9,16 @@ def callMavenSonarScan() {
     cleanWs()
 
    // Get code from GitHub repository
-   withCredentials([[$class: 'UsernamePasswordMultiBinding', credentialsId: 'GitHub-uname', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD']]) {
+  /* withCredentials([[$class: 'UsernamePasswordMultiBinding', credentialsId: 'GitHub-uname', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD']]) {
     git(
     url: "https://$PASSWORD@github.com/abelasuvalenteen/fibonacci.git",
     branch: 'march-release'
     )
-   }
+   }*/
 
     withCredentials([[$class: 'UsernamePasswordMultiBinding', credentialsId: 'sonar-creds', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD']]) {
         // To run Maven on a Windows agent, use
-        sh "mvn -Dmaven.test.failure.ignore=true clean install sonar:sonar -Dsonar.host.url=http://localhost:9000 -Dsonar.login=$PASSWORD"
+        sh "cd $WORKSPACE && ls -ltr && mvn -Dmaven.test.failure.ignore=true clean install sonar:sonar -Dsonar.host.url=http://localhost:9000 -Dsonar.login=$PASSWORD"
     }
 }
 
@@ -45,14 +45,15 @@ def callDockerBuild () {
      // Check docker version
      sh "docker --version"
      dir("${WORKSPACE}") {
-         withCredentials([[$class: 'UsernamePasswordMultiBinding', credentialsId: 'GitHub-uname', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD']]) {
+         /*withCredentials([[$class: 'UsernamePasswordMultiBinding', credentialsId: 'GitHub-uname', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD']]) {
          git(
              url: "https://$PASSWORD@github.com/abelasuvalenteen/fibonacci.git",
              branch: 'march-release'
          )
-         }
+         }*/
          withCredentials([[$class: 'UsernamePasswordMultiBinding', credentialsId: 'docker-hub', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD']]) {
              // docker hub login
+             sh "cd $WORKSPACE && ls -ltr"
              sh "docker login -u $USERNAME -p $PASSWORD"
 
              try {
