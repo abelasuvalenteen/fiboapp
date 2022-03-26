@@ -44,13 +44,14 @@ def callDockerBuild () {
       cleanWs()
      // Check docker version
      sh "docker --version"
+     sh "ls -ltr $WORKSPACE"
      dir("${WORKSPACE}") {
-         /*withCredentials([[$class: 'UsernamePasswordMultiBinding', credentialsId: 'GitHub-uname', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD']]) {
+         withCredentials([[$class: 'UsernamePasswordMultiBinding', credentialsId: 'git-hub', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD']]) {
          git(
              url: "https://$PASSWORD@github.com/abelasuvalenteen/fibonacci.git",
              branch: 'march-release'
          )
-         }*/
+         }
          //withCredentials([[$class: 'UsernamePasswordMultiBinding', credentialsId: 'docker-hub', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD']]) {
              // docker hub login
              sh "cd $WORKSPACE && ls -ltr"
