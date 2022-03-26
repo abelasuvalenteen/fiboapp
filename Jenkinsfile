@@ -54,7 +54,7 @@ def callDockerBuild () {
          }
          withCredentials([[$class: 'UsernamePasswordMultiBinding', credentialsId: 'docker-hub', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD']]) {
              // docker hub login
-             sh "cd $WORKSPACE && ls -ltr"
+             sh "cd $WORKSPACE && ls -ltr && cat Dockerfile"
              sh "docker login -u $USERNAME -p $PASSWORD"
 
              try {
