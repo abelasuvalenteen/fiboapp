@@ -54,7 +54,7 @@ def callDockerBuild () {
          withCredentials([[$class: 'UsernamePasswordMultiBinding', credentialsId: 'docker-hub', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD']]) {
              // docker hub login
              sh "cd $WORKSPACE && ls -ltr"
-             sh "docker login -u $USERNAME -p $PASSWORD"
+             sh "export DOCKER_HOST=tcp://localhost:2375 && docker login -u $USERNAME -p $PASSWORD"
 
              try {
                 // Kill the container if any running
