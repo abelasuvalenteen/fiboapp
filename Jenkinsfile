@@ -95,7 +95,7 @@ pipeline {
         stage('Code Quality Scan') {
             steps {
                script {
-                   echo "Call docker build"
+                   echo "Call docker buildv"
                    //callMavenSonarScan()
                }
             }
