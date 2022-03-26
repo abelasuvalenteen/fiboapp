@@ -16,7 +16,7 @@ def callMavenSonarScan() {
 
     withCredentials([[$class: 'UsernamePasswordMultiBinding', credentialsId: 'sonar-creds', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD']]) {
         // To run Maven on a Windows agent, use
-        bat "mvn -Dmaven.test.failure.ignore=true clean install sonar:sonar -Dsonar.host.url=http://localhost:9000 -Dsonar.login=$PASSWORD"
+        sh "mvn -Dmaven.test.failure.ignore=true clean install sonar:sonar -Dsonar.host.url=http://localhost:9000 -Dsonar.login=$PASSWORD"
     }
 }
 
@@ -40,42 +40,42 @@ def callDockerBuild () {
       // Clean Workspace before start
       cleanWs()
      // Check docker version
-     bat "docker --version"
+     sh "docker --version"
      dir("${WORKSPACE}") {
          git(
              url: 'https://github.com/abelasuvalenteen/fibonacci.git',
-             branch: 'main'
+             branch: 'march-release'
          )
-         withCredentials([[$class: 'UsernamePasswordMultiBinding', credentialsId: 'dockerhub-creds', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD']]) {
+         withCredentials([[$class: 'UsernamePasswordMultiBinding', credentialsId: 'GitHub-uname', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD']]) {
              // docker hub login
-             bat "docker login -u $USERNAME -p $PASSWORD"
+             sh "docker login -u $USERNAME -p $PASSWORD"
 
              try {
                 // Kill the container if any running
-                bat "docker container kill fibonacci"
+                sh "docker container kill fibonacci"
                 // Remove the container
-                bat "docker container rm fibonacci"
+                sh "docker container rm fibonacci"
              } catch (Exception e) {
                  // If no container running continue
                  echo "Do Nothing"
              }
 
              // docker build and tag image
-             bat "docker build --no-cache -t ${DOCKER_HUB_NAMESPACE}/${IMAGE_NAME}:${VERSION} ."
+             sh "docker build --no-cache -t ${DOCKER_HUB_NAMESPACE}/${IMAGE_NAME}:${VERSION} ."
              // docker push tagged image
-             bat "docker push ${DOCKER_HUB_NAMESPACE}/${IMAGE_NAME}:${VERSION}"
+             sh "docker push ${DOCKER_HUB_NAMESPACE}/${IMAGE_NAME}:${VERSION}"
              // docker list images
-             bat "docker images"
+             sh "docker images"
              // docker run
-             bat "docker run --name fibonacci -t -d -p 8181:8181/tcp ${DOCKER_HUB_NAMESPACE}/${IMAGE_NAME}:${VERSION}"
+             sh "docker run --name fibonacci -t -d -p 8181:8181/tcp ${DOCKER_HUB_NAMESPACE}/${IMAGE_NAME}:${VERSION}"
          }
      }
 }
 
 pipeline {
-    agent {
+   agent {
       node {
-        label "win_slave"
+        label "master"
       }
     }
 
