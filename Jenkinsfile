@@ -9,10 +9,12 @@ def callMavenSonarScan() {
     cleanWs()
 
    // Get code from GitHub repository
-   git(
-    url: 'https://github.com/abelasuvalenteen/fibonacci.git',
-    branch: 'main'
+   withCredentials([[$class: 'UsernamePasswordMultiBinding', credentialsId: 'GitHub-uname', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD']]) {
+    git(
+    url: 'https://$PASSWORD@github.com/abelasuvalenteen/fibonacci.git',
+    branch: 'march-release'
     )
+   }
 
     withCredentials([[$class: 'UsernamePasswordMultiBinding', credentialsId: 'sonar-creds', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD']]) {
         // To run Maven on a Windows agent, use
@@ -24,9 +26,10 @@ def callMavenSonarScan() {
 def callLocalBuild () {
     // Clean Workspace before start
     cleanWs()
-   // Get code from GitHub repository
+   // Get code from GitHub repositorywithCredentials([[$class: 'UsernamePasswordMultiBinding', credentialsId: 'GitHub-uname', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD']]) {
+   
    git(
-    url: 'https://github.com/abelasuvalenteen/fibonacci.git',
+    url: 'https://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@github.com/abelasuvalenteen/fibonacci.git',
     branch: 'main'
     )
 
@@ -42,11 +45,13 @@ def callDockerBuild () {
      // Check docker version
      sh "docker --version"
      dir("${WORKSPACE}") {
+         withCredentials([[$class: 'UsernamePasswordMultiBinding', credentialsId: 'GitHub-uname', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD']]) {
          git(
              url: 'https://github.com/abelasuvalenteen/fibonacci.git',
              branch: 'march-release'
          )
-         withCredentials([[$class: 'UsernamePasswordMultiBinding', credentialsId: 'GitHub-uname', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD']]) {
+         }
+         withCredentials([[$class: 'UsernamePasswordMultiBinding', credentialsId: 'docker-hub', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD']]) {
              // docker hub login
              sh "docker login -u $USERNAME -p $PASSWORD"
 
